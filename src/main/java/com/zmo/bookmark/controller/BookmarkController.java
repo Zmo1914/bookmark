@@ -2,9 +2,11 @@ package com.zmo.bookmark.controller;
 
 import com.zmo.bookmark.dto.ApiListResponse;
 import com.zmo.bookmark.dto.BookmarkDTO;
+import com.zmo.bookmark.dto.TagDTO;
 import com.zmo.bookmark.exception.EntityAlreadyExistsException;
 import com.zmo.bookmark.exception.EntityNotFoundException;
 import com.zmo.bookmark.model.Bookmark;
+import com.zmo.bookmark.model.Tag;
 import com.zmo.bookmark.response.ResponseHandler;
 import com.zmo.bookmark.service.BookmarkService;
 import com.zmo.bookmark.service.TagService;
@@ -29,6 +31,7 @@ import java.util.List;
 public class BookmarkController {
 
     private final BookmarkService service;
+    private final TagService tagService;
 
     @GetMapping(path = "/{id}")
     public ResponseEntity<?> getBookmarkById(@PathVariable Integer id) {
@@ -75,4 +78,13 @@ public class BookmarkController {
             return ResponseEntity.status(HttpStatus.CONFLICT).body(BookmarkDTO.of(service.getBookmarkById(bookmarkId)));
         }
     }
+
+    @GetMapping("/getTags/{bookmarkId}")
+    public void getTags(@PathVariable Integer bookmarkId){
+        List<Bookmark> tagsList = service.getBookmarksByTag(bookmarkId);
+        System.out.println(tagsList.size());
+    }
+
+
+
 }

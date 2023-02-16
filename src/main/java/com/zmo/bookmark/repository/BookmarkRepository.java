@@ -1,7 +1,6 @@
 package com.zmo.bookmark.repository;
 
 import com.zmo.bookmark.model.Bookmark;
-import com.zmo.bookmark.model.Tag;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -16,9 +15,14 @@ public interface BookmarkRepository extends JpaRepository<Bookmark, Integer> {
 
     Optional<Bookmark> findBookmarkByNameIgnoreCase(String name);
 
-    @Query("SELECT bookmark.linkedTags " +
-            "FROM Bookmark bookmark " +
-            "JOIN  Tag " +
-            "WHERE bookmark.bookmarkId = :bookmarkId")
-    List<Tag> getAllTags(@Param("bookmarkId") Integer bookmarkId);
+    @Query( "select o from Bookmark o where o.bookmarkId in :bookmarkIds" )
+    List<Bookmark> findByBookmarkIdIs(List<Integer> bookmarkIds);
+
+    @Query(value = "SELECT tag_id FROM Bookmarks_Tags bc WHERE bc.bookmark_id = :bookmarkId", nativeQuery = true)
+    List<Integer> findTagsByBookmarkId(@Param("bookmarkId") Integer bookmarkId);
+
+    @Query(value = "SELECT bookmark_id FROM Bookmarks_Tags bc WHERE bc.tag_id = :tagId",
+            nativeQuery = true)
+    List<Integer> findBookmarksByTagId(@Param("tagId") Integer tagId);
+
 }

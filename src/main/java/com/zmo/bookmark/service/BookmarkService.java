@@ -13,10 +13,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.awt.print.Book;
 import java.time.Instant;
 import java.util.List;
-import java.util.Objects;
-import java.util.Set;
 import java.util.stream.Stream;
 
 @Slf4j
@@ -91,4 +90,11 @@ public class BookmarkService {
 
         return bookmarkRepository.save(bookmark);
     }
+
+    public List<Bookmark> getBookmarksByTag(Integer tagId) {
+        List<Integer> bookmarkIds =  bookmarkRepository.findBookmarksByTagId(tagId);
+
+        return  bookmarkRepository.findByBookmarkIdIs(bookmarkIds);
+    }
+
 }

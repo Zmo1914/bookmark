@@ -2,6 +2,7 @@ package com.zmo.bookmark.controller;
 
 import com.zmo.bookmark.dto.ApiListResponse;
 import com.zmo.bookmark.dto.TagDTO;
+import com.zmo.bookmark.model.Bookmark;
 import com.zmo.bookmark.model.Tag;
 import com.zmo.bookmark.service.TagService;
 import lombok.AllArgsConstructor;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import java.util.Set;
 
 @Slf4j
 @AllArgsConstructor
@@ -44,7 +46,4 @@ public class TagController {
                 .totalCount(tags.size()).build());
     }
 
-//    public ResponseEntity<?> getBookmarksByTag(Integer tagId){
-//
-//    }
 }

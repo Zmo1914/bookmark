@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.jetbrains.annotations.NotNull;
 
 @Data
 @Builder
@@ -13,9 +14,11 @@ import lombok.NoArgsConstructor;
 @Entity
 @Table(name = "node")
 public class Node {
+
+    @NotNull
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "node_id", nullable = false)
+    @Column(name = "node_id")
     private Integer id;
 
     @ManyToOne(fetch = FetchType.LAZY)
