@@ -1,4 +1,4 @@
-package com.emil.bookmark;
+package com.zmo.bookmark;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

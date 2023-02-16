@@ -1,0 +1,17 @@
+
+
+POST http://localhost:8080/bookmark/v1/bookmark/
+Content-Type: application/json
+
+{
+  "name":"Sample site name",
+  "description":"Sample site description",
+  "enabled":true,
+  "path":"www.domain.com"
+}
+###
+
+GET http://localhost:8080/bookmark/v1/bookmark/1
+
+
+###

@@ -1,4 +1,4 @@
-package com.emil.bookmark.model;
+package com.zmo.bookmark.model;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -8,6 +8,10 @@ import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.CreatedDate;
 
 import java.time.Instant;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 @Data
 @Builder
@@ -24,11 +28,14 @@ public class Tag {
     @Column(name = "tag_name", nullable = false, length = 50)
     private String tagName;
 
-    @Column(name = "description", length = 300)
-    private String description;
-
     @CreatedDate
     @Column(name = "created_date", updatable = false)
     private Instant createdDate;
+
+    @Builder.Default
+    @ManyToMany(mappedBy = "linkedTags")
+    private Set<Bookmark> taggedBookmarks = new HashSet<>();
+
+
 
 }
