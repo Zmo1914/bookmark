@@ -1,10 +1,13 @@
-package com.zmo.bookmark.model;
+package com.emil.bookmark.model;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.data.annotation.CreatedDate;
+
+import java.time.Instant;
 
 @Data
 @Builder
@@ -23,5 +26,9 @@ public class Tag {
 
     @Column(name = "description", length = 300)
     private String description;
+
+    @CreatedDate
+    @Column(name = "created_date", updatable = false)
+    private Instant createdDate;
 
 }

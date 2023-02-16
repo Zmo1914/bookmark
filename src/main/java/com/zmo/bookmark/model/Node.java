@@ -1,4 +1,4 @@
-package com.zmo.bookmark.model;
+package com.emil.bookmark.model;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
