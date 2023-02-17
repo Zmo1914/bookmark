@@ -33,10 +33,13 @@ public class TagDTO {
         Tag tag = new Tag();
         BeanUtils.copyProperties(dto, tag);
 
-        if (!CollectionUtils.isEmpty(dto.getBookmarks())){
-            dto.getBookmarks().forEach(b -> tag.getTaggedBookmarks()
-                    .add(Bookmark.builder().name(b)
-                            .linkedTags(Set.of(tag)).build()));
+        if (!CollectionUtils.isEmpty(dto.getBookmarks())) {
+            dto.getBookmarks().forEach(b -> tag.getTaggedBookmarks().add(
+                    Bookmark.
+                            builder()
+                            .name(b)
+                            .linkedTags(Set.of(tag))
+                            .build()));
         }
 
         return tag;
@@ -53,8 +56,11 @@ public class TagDTO {
         TagDTO dto = new TagDTO();
         BeanUtils.copyProperties(tag, dto);
 
-        if (!CollectionUtils.isEmpty(tag.getTaggedBookmarks())){
-            dto.setBookmarks(tag.getTaggedBookmarks().stream().map(Bookmark::getName)
+        if (!CollectionUtils.isEmpty(tag.getTaggedBookmarks())) {
+            dto.setBookmarks(tag
+                    .getTaggedBookmarks()
+                    .stream()
+                    .map(Bookmark::getName)
                     .collect(Collectors.toList()));
         }
 
