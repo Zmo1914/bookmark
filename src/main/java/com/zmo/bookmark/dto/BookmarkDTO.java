@@ -38,8 +38,10 @@ public class BookmarkDTO {
         BeanUtils.copyProperties(dto, bookmark);
 
         if (!CollectionUtils.isEmpty(dto.getTags())) {
-            dto.getTags().forEach(t -> bookmark
-                    .getLinkedTags().add(Tag.builder().tagName(t).taggedBookmarks(Set.of(bookmark)).build()));
+            dto.getTags().forEach(t -> bookmark.getLinkedTags()
+                    .add(Tag.builder()
+                            .tagName(t)
+                            .taggedBookmarks(Set.of(bookmark)).build()));
         }
 
         return bookmark;
@@ -56,8 +58,8 @@ public class BookmarkDTO {
         BookmarkDTO dto = new BookmarkDTO();
         BeanUtils.copyProperties(bookmark, dto);
 
-        if(!CollectionUtils.isEmpty(bookmark.getLinkedTags())){
-            dto .setTags(bookmark.getLinkedTags().stream().map(Tag::getTagName)
+        if (!CollectionUtils.isEmpty(bookmark.getLinkedTags())) {
+            dto.setTags(bookmark.getLinkedTags().stream().map(Tag::getTagName)
                     .collect(Collectors.toList()));
         }
 

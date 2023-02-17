@@ -9,10 +9,11 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.BeanUtils;
+import org.springframework.util.CollectionUtils;
 
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Getter
@@ -26,10 +27,17 @@ public class TagDTO {
 
     private Integer id;
     private String tagName;
+    private List<String> bookmarks;
 
     public static Tag to(TagDTO dto) {
         Tag tag = new Tag();
         BeanUtils.copyProperties(dto, tag);
+
+        if (!CollectionUtils.isEmpty(dto.getBookmarks())){
+            dto.getBookmarks().forEach(b -> tag.getTaggedBookmarks()
+                    .add(Bookmark.builder().name(b)
+                            .linkedTags(Set.of(tag)).build()));
+        }
 
         return tag;
     }
@@ -44,6 +52,11 @@ public class TagDTO {
     public static TagDTO of(final Tag tag) {
         TagDTO dto = new TagDTO();
         BeanUtils.copyProperties(tag, dto);
+
+        if (!CollectionUtils.isEmpty(tag.getTaggedBookmarks())){
+            dto.setBookmarks(tag.getTaggedBookmarks().stream().map(Bookmark::getName)
+                    .collect(Collectors.toList()));
+        }
 
         return dto;
     }
