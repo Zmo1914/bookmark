@@ -29,9 +29,7 @@ import java.util.List;
 @RestController
 @RequestMapping("bookmark/v1/bookmark")
 public class BookmarkController {
-
     private final BookmarkService service;
-    private final TagService tagService;
 
     @GetMapping(path = "/{id}")
     public ResponseEntity<?> getBookmarkById(@PathVariable Integer id) {
@@ -79,10 +77,10 @@ public class BookmarkController {
         }
     }
 
-    @GetMapping("/getTags/{bookmarkId}")
-    public void getTags(@PathVariable Integer bookmarkId){
-        List<Bookmark> tagsList = service.getBookmarksByTag(bookmarkId);
-        System.out.println(tagsList.size());
+    @GetMapping("/getTags/{tagName}")
+    public void getTags(@PathVariable String tagName){
+        service.getBookmarksByTag(tagName);
+
     }
 
 

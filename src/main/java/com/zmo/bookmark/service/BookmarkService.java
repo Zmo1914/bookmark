@@ -91,10 +91,13 @@ public class BookmarkService {
         return bookmarkRepository.save(bookmark);
     }
 
-    public List<Bookmark> getBookmarksByTag(Integer tagId) {
-        List<Integer> bookmarkIds =  bookmarkRepository.findBookmarksByTagId(tagId);
+    public List<Bookmark> getBookmarksByTag(String tagName) {
+        var test = bookmarkRepository.findAll()
+                .stream()
+                .map(Bookmark::getLinkedTags)
+                .toList().contains(tagName);
 
-        return  bookmarkRepository.findByBookmarkIdIs(bookmarkIds);
+        return null;
     }
 
 }

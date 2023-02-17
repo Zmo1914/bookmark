@@ -73,6 +73,14 @@ public class BookmarkDTO {
                 .collect(Collectors.toList());
     }
 
+    public static List<BookmarkDTO> of(final Set<Bookmark> bookmarks) {
+        return bookmarks
+                .stream()
+                .map(BookmarkDTO::of)
+                .collect(Collectors.toList());
+    }
+
+
     @Override
     public String toString() {
         return "{" +

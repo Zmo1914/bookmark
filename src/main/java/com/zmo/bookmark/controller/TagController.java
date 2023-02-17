@@ -1,8 +1,8 @@
 package com.zmo.bookmark.controller;
 
 import com.zmo.bookmark.dto.ApiListResponse;
+import com.zmo.bookmark.dto.BookmarkDTO;
 import com.zmo.bookmark.dto.TagDTO;
-import com.zmo.bookmark.model.Bookmark;
 import com.zmo.bookmark.model.Tag;
 import com.zmo.bookmark.service.TagService;
 import lombok.AllArgsConstructor;
@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
-import java.util.Set;
 
 @Slf4j
 @AllArgsConstructor
@@ -33,17 +32,23 @@ public class TagController {
     }
 
     @GetMapping("/{tagName}")
-    public ResponseEntity<?> findByName(@PathVariable @NotNull String tagName){
+    public ResponseEntity<?> getByName(@PathVariable @NotNull String tagName){
         return ResponseEntity.ok().body(TagDTO.of(service.findByName(tagName)));
     }
 
     @GetMapping("/")
-    public ResponseEntity<?> findAll() {
+    public ResponseEntity<?> getAll() {
         List<Tag> tags = service.findAll();
 
         return ResponseEntity.ok().body(ApiListResponse.builder()
                 .results(TagDTO.of(tags))
                 .totalCount(tags.size()).build());
+    }
+
+    @GetMapping("/bookmarks/{tagName}")
+    public ResponseEntity<?> getAllBookmarksByTag(@PathVariable String tagName){
+        return ResponseEntity.ok()
+                .body(BookmarkDTO.of(service.findLinkedBookmarks(tagName)));
     }
 
 }
